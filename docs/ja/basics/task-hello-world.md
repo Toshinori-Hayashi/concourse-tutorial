@@ -4,10 +4,7 @@ image_path: /images/build-output-hello-world.png
 
 # Hello World
 
-Concourseのコンセプトはタスクの実行です。以下に示すようにコマンドラインから直接実行ができます。
-（他のセクションで示されるように）パイプラインから実行することも可能です。
-
-The central concept of Concourse is to run tasks. You can run them directly from the command line as below, or from within pipeline jobs (as per every other section of the tutorial).
+Concourseはタスクの実行を基本としています。以下に示すようにコマンドラインから直接実行も可能ですし、（他のセクションで示されるように）パイプラインから実行することも可能です。
 
 ```
 git clone https://github.com/starkandwayne/concourse-tutorial
@@ -15,19 +12,20 @@ cd concourse-tutorial/tutorials/basic/task-hello-world
 fly -t tutorial execute -c task_hello_world.yml
 ```
 
-実行結果の最初の部分を示します。
-The output starts with
+実行結果は以下のように始まります。
 
 ```
 executing build 1 at http://127.0.0.1:8080/builds/1
 initializing
 ```
 
-Every task in Concourse runs within a "container" (as best available on the target platform). The `task_hello_world.yml` configuration shows that we are running on a `linux` platform using the `busybox` container image.  You will see it downloading a Docker image `busybox`. It will only need to do this once; though will recheck every time that it has the latest `busybox` image.
+Concourseのタスクは「コンテナ」内で実行されます（それぞれのタスクを実行するために最適なプラットフォームが利用できます）。`task_hello_world.yml`では`linux`の`busybox`コンテナ上で実行されていることがわかります。`busybox`Dockerイメージのダウンロードは最初に一度だけ行われ、以降は毎回最新の`busybox`イメージがあるかがチェックされます。
 
-Within this container it will run the command `echo hello world`.
 
-The `task_hello_world.yml` task file looks like:
+このコンテナでは、`echo hello world`コマンドが実行されています。
+
+`task_hello_world.yml`ファイルは以下のようになります。
+
 
 ```yaml
 ---
@@ -42,8 +40,7 @@ run:
   args: [hello world]
 ```
 
-
-Eventually it will continue and invoke the command `echo hello world` successfully:
+実行されると最終的に`echo hello world`コマンドが呼び出されます。
 
 ```
 running echo hello world
@@ -51,11 +48,17 @@ hello world
 succeeded
 ```
 
-The URL http://127.0.0.1:8080/builds/1 is viewable in the browser. It is another view of the same task.
+URL http://127.0.0.1:8080/builds/1がブラウザに表示されます。それは同じ仕事の別の見方です。
 
-![build-output-hello-world](/images/build-output-hello-world.png)
+<!--
+The URL http://127.0.0.1:8080/builds/1 is viewable in the browser. It is another view of the same task.
+-->
+
+![build-output-hello-world](../../images/build-output-hello-world.png)
 
 ## Task Docker Images
+
+image_resource:やを変更してrun:、別のタスクを実行してみてください：
 
 Try changing the `image_resource:` and the `run:` and run a different task:
 

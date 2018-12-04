@@ -7,6 +7,7 @@ image_resource:
 
 inputs:
 - name: some-important-input
+  path: task-inputs
 
 run:
   path: ls
